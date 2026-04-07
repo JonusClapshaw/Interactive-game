@@ -32,7 +32,7 @@ function renderUpgrades() {
       "Bonus: " +
       upgrade.Upgrade +
       ", " +
-      "<button>Buy Button</button>" +
+      "<button onclick=buyUpgrade(${upgrade.id})>Buy Button</button>" +
       "</div>";
   });
 }
