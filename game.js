@@ -17,23 +17,30 @@ function updateDisplay() {
 clickBtn.addEventListener("click", function () {
   score += pointsPerClick;
   updateDisplay();
+  renderUpgrades();
 });
 
 function renderUpgrades() {
+  upgradeDiv.innerHTML = "";
+
   upgrades.forEach((upgrade) => {
-    upgradeDiv.innerHTML +=
-      "<div>" +
+    const div = document.createElement("div");
+    div.textContent =
       "Upgrade Name: " +
       upgrade.name +
-      ", " +
-      "Upgrade Cost: " +
+      ", Upgrade Cost: " +
       upgrade.Cost +
-      ", " +
-      "Bonus: " +
+      ", Bonus: " +
       upgrade.Upgrade +
-      ", " +
-      `<button onclick="buyUpgrade(${upgrade.id})">Buy Button</button>` +
-      "</div>";
+      " ";
+
+    const button = document.createElement("button");
+    button.textContent = "Buy";
+    button.onclick = () => buyUpgrade(upgrade.id);
+    button.disabled = score < upgrade.Cost;
+
+    div.appendChild(button);
+    upgradeDiv.appendChild(div);
   });
 }
 
@@ -42,10 +49,11 @@ renderUpgrades();
 
 function buyUpgrade(id) {
   const upgrade = upgrades.find(u => u.id === id);
-
+  
   if (score >= upgrade.Cost) {
     score -= upgrade.Cost;
     pointsPerClick += upgrade.Upgrade;
     updateDisplay();
+    renderUpgrades();
   }
 }
