@@ -32,19 +32,20 @@ function renderUpgrades() {
       "Bonus: " +
       upgrade.Upgrade +
       ", " +
-      "<button onclick=buyUpgrade(${upgrade.id})>Buy Button</button>" +
+      `<button onclick="buyUpgrade(${upgrade.id})">Buy Button</button>` +
       "</div>";
   });
 }
 
+updateDisplay();
 renderUpgrades();
 
+function buyUpgrade(id) {
+  const upgrade = upgrades.find(u => u.id === id);
 
-function buyUpgrade(id){
-    if(upgrades.Cost < score){
-        pointsPerClick += upgrades.Upgrade;
-        score -= id.Cost;
-        updateDisplay();
-        renderUpgrades();
-    }
+  if (score >= upgrade.Cost) {
+    score -= upgrade.Cost;
+    pointsPerClick += upgrade.Upgrade;
+    updateDisplay();
+  }
 }
