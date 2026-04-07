@@ -38,3 +38,13 @@ function renderUpgrades() {
 }
 
 renderUpgrades();
+
+
+function buyUpgrade(id){
+    if(upgrades.Cost < score){
+        pointsPerClick += upgrades.Upgrade;
+        score -= id.Cost;
+        updateDisplay();
+        renderUpgrades();
+    }
+}
